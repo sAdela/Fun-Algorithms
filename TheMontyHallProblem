@@ -1,3 +1,7 @@
+//It's not standard coding exercise, I coded it for fun and out of curiousity
+//Here is the description of the problem:
+//https://en.wikipedia.org/wiki/Monty_Hall_problem
+
 #include<iostream>
 #include<time.h>
 using namespace std;
