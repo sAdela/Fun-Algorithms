@@ -1,0 +1,75 @@
+#include<iostream>
+#include<time.h>
+using namespace std;
+
+void main() {
+	int pomocni[1000] = {};
+
+	srand(time(NULL));
+
+	for (int i = 0; i < 1000; i++) { 
+		//Random generisem 1000 brojeva između 0 i 1 (0 - ne mijenja izbor, 1 - mijenja izbor)
+		pomocni[i] = rand() % 2;
+		//cout << "Pom: " << pomocni[i] << endl << endl;
+	}
+
+	int izbor[1000]; 
+	srand(time(NULL));
+	for (int i = 0; i < 1000; i++) {
+		//Random generisem 1000 izbora jednih od troja vrata (0, 1, 2)
+		izbor[i] = rand() % 3;			
+		//cout << "Izabrao: " << izbor[i] << endl << endl;
+	}
+
+	int countIspravnoNemaPromjene = 0; //Brojac ako osvaja auto a ne mijenja odluku
+	int countNeispravnoNemaPromjene = 0;//Brojac ako ne osvaja auto a ne mijenja odluku
+	int countIspravnoPromjena = 0;//Brojac ako osvaja auto a mijenja odluku
+	int countNeispravnoPromjena = 0;//Brojac ako me osvaja auto a mijenja odluku
+
+	for (int i = 0; i < 1000; i++) {
+		int niz[3] = { 0 };
+		niz[i % 3] = 1; 
+		//Postavljam clanove niza na nulu svakom iteracijom, 
+		//na poziciju "i" postavljam 1 (označava mjesto na kojem se auto nalazi, a 0 označava mjesto na kojem su koze)
+		//tako da se ponavljaju tri moguće kombinacije 1000 puta:
+
+		/*
+			0 0 1
+			0 1 0
+			1 0 0
+		*/
+
+
+		if (pomocni[i] == 0) {
+
+			//cout << "Ne mijenja svoj izbor" << endl;
+
+			//Ako se na poziciji izbora nalazi auto, povećavam odgovarajući brojač
+			if (niz[izbor[i]] == 1) 
+				countIspravnoNemaPromjene++; 
+			else 
+				countNeispravnoNemaPromjene++;
+
+		}
+		else {
+			//cout << "Mijenja svoj izbor" << endl;
+
+			// Ako mu je izbor bio tacan a mijenja svoju odluku, onda ce odgovoriti svakako netačno
+			if (niz[izbor[i]] == 1) 
+				countNeispravnoPromjena++; 
+			else 
+				countIspravnoPromjena++; 
+			// Pošto se druga vrata gdje je ovca otvaraju još prije nego što mu se ponudi da li da mijenja izbor,
+			// on sigurno bira tacan izbor
+		}
+
+	}
+
+	cout << "Ispravnih odluka nakon sto promjeni: " << countIspravnoPromjena << endl;
+	cout << "Neispravnih odluka nakon sto promjeni: " << countNeispravnoPromjena << endl;
+	cout << "Ispravnih odluka nakon sto ne promjeni: " << countIspravnoNemaPromjene << endl;
+	cout << "Neispravnih odluka nakon sto ne promjeni: " << countNeispravnoNemaPromjene << endl;
+
+
+	system("pause>0");
+}
