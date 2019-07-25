@@ -1,0 +1,60 @@
+/*Given an array of distinct integers. 
+The task is to find all the triplets such that sum of two elements equals the third element.
+
+Input:
+The first line of input contains an integer T denoting the number of test cases. 
+Then T test cases follow. Each test case consists of two lines. 
+First line of each test case contains an Integer N denoting size of array and the second line contains N space separated elements.*/
+
+//my new improved solution:
+
+#include<iostream>
+using namespace std;
+
+void InsertionSort(int* niz, int velicina) {
+	for (int i = 1; i < velicina; i++) {
+		int j = i;
+		while (j > 0 && niz[j - 1] > niz[j]) {
+			auto pom = niz[j - 1];
+			niz[j - 1] = niz[j];
+			niz[j] = pom;
+			j--;
+		}
+	}
+}
+
+void findTriplet(int arr[], int n){
+	InsertionSort(arr, n); 
+	for (int i = n - 1; i >= 0; i--) {
+		int j = 0;
+		int k = i - 1;
+		while (j < k){
+			if (arr[i] == arr[j] + arr[k]){	
+				cout << arr[j] << " + " << arr[k] << " = " << arr[i] << endl;
+				j++; 
+				k--;
+			}
+
+			else if (arr[i] > arr[j] + arr[k])
+				j++;
+			else
+				k--;
+		}
+	}
+}
+void main(){
+	int t;
+	cin >> t;
+	while (t--){
+		int n;
+		cin >> n; 
+		int *arr = new int[n];
+
+		for (int i = 0; i < n; i++)
+			cin >> arr[i];
+
+		findTriplet(arr, n);
+		
+	}
+	system("pause>0");
+}
