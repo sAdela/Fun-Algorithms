@@ -54,7 +54,7 @@ void main(){
 			cin >> arr[i];
 
 		findTriplet(arr, n);
-		
+		delete[] arr;
 	}
 	system("pause>0");
 }
